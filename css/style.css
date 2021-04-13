@@ -22,7 +22,8 @@ body {
   max-width: 1080px;
   margin-top: 30px;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
+  display: flex;
 }
 
 /* GAME DIRECTIONS */
@@ -111,44 +112,61 @@ body {
   background: none;
 }
 
-/* LEFT-SIDE PLAYER 1 */
+/* LEFT-SIDE PLAYER 1 & RIGHT-SIDE PLAYER 2*/
 #left-side {
-  text-align: center;
-  border: 1px solid #000;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  background-color: #f4f4f4;
+}
+
+#right-side {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#left-side,
+#right-side {
+  text-align: center;
+  /* border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px; */
   width: 50%;
   padding: 50px 100px 50px;
 }
 
-#left-side > .player-1-layout > .player-1 > .dot {
+#left-side > .player-1-layout > .player-1 > .dot,
+#right-side > .player-2-layout > .player-2 > .dot {
   width: 10px;
   height: 10px;
   background-color: red;
   border-radius: 50%;
 }
 
-#left-side .player-1 {
+#left-side .player-1,
+#right-side .player-2 {
   display: flex;
   align-items: center;
   /* justify-content: center; */
 }
 
-#left-side > .player-1-layout > .player-1 {
+#left-side > .player-1-layout > .player-1,
+#right-side > .player-2-layout > .player-2 {
   padding-left: 100px;
 }
 
-#left-side > .player-1-layout > .player-1 > h2 {
+#left-side > .player-1-layout > .player-1 > h2,
+#right-side > .player-2-layout > .player-2 > h2 {
   font-size: 2.5rem;
   padding-right: 50px;
 }
 
-#left-side > .player-1-layout {
+#left-side > .player-1-layout,
+#right-side > .player-2-layout {
   display: flex;
   flex-direction: column;
 }
 
-#left-side > .player-1-layout > .rolling-score-1 {
+#left-side > .player-1-layout > .rolling-score-1,
+#right-side > .player-2-layout > .rolling-score-2 {
   color: red;
   font-size: 4em;
   font-weight: 100;
@@ -156,7 +174,8 @@ body {
   padding-bottom: 50px;
 }
 
-#left-side > .player-1-layout > .current-score-1 {
+#left-side > .player-1-layout > .current-score-1,
+#right-side > .player-2-layout > .current-score-2 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,12 +189,14 @@ body {
   border-radius: 10px;
 }
 
-#left-side > .player-1-layout > .current-score-1 > h4 {
+#left-side > .player-1-layout > .current-score-1 > h4,
+#right-side > .player-2-layout > .current-score-2 > h4 {
   padding-bottom: 20px;
   font-size: 1.1rem;
 }
 
-#left-side > .player-1-layout > .current-score-1 > .player-score {
+#left-side > .player-1-layout > .current-score-1 > .player-1-score,
+#right-side > .player-2-layout > .current-score-2 > .player-2-score {
   font-size: 1.5rem;
   font-weight: 400;
 }
