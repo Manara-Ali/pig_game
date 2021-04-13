@@ -8,7 +8,7 @@
 /* DEFAULT ELEMENTS */
 body {
   height: 100vh;
-  max-width: 960px;
+  max-width: 1080px;
   margin: 200px auto 0;
   background-image: linear-gradient(to bottom right, #000, #444, #ccc, #fff);
   background-size: cover;
@@ -19,7 +19,7 @@ body {
 
 /* PAGE WRAPPER */
 #wrapper {
-  max-width: 960px;
+  max-width: 1080px;
   margin-top: 30px;
   background-color: #fff;
   border-radius: 10px;
@@ -121,23 +121,61 @@ body {
   padding: 50px 100px 50px;
 }
 
-#left-side > .player-1 > .current-player > .dot {
+#left-side > .player-1-layout > .player-1 > .dot {
   width: 10px;
   height: 10px;
   background-color: red;
   border-radius: 50%;
 }
 
-#left-side .current-player {
+#left-side .player-1 {
   display: flex;
   align-items: center;
   /* justify-content: center; */
 }
 
-#left-side > .player-1 > .current-player {
+#left-side > .player-1-layout > .player-1 {
   padding-left: 100px;
 }
 
-#left-side > .player-1 > .current-player > h2 {
+#left-side > .player-1-layout > .player-1 > h2 {
+  font-size: 2.5rem;
   padding-right: 50px;
+}
+
+#left-side > .player-1-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+#left-side > .player-1-layout > .rolling-score-1 {
+  color: red;
+  font-size: 4em;
+  font-weight: 100;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#left-side > .player-1-layout > .current-score-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: #555;
+  width: 150px;
+  height: 100px;
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#left-side > .player-1-layout > .current-score-1 > h4 {
+  padding-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+#left-side > .player-1-layout > .current-score-1 > .player-score {
+  font-size: 1.5rem;
+  font-weight: 400;
 }
