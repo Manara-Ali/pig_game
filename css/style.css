@@ -82,13 +82,13 @@ body {
 
 .rules {
   max-width: 30%;
-  max-height: 30%;
+  /* max-height: 30%; */
   background-color: #fff;
   padding: 50px;
   border-radius: 20px;
   z-index: 10;
   position: absolute;
-  top: 20rem;
+  top: 10rem;
   left: 40rem;
 }
 

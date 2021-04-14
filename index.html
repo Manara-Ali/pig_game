@@ -17,12 +17,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <title>Pig Game</title>
+    <title>Dice Game</title>
   </head>
   <body>
+    <div class="overlay hide"></div>
     <div id="directions">
       <div class="game-selection">
-        <button class="btn btn-game-selection">PIG GAME</button>
+        <button class="btn btn-game-selection">Dice GAME</button>
         <!-- <div class="games">
           <h2>Select Game</h2>
           <ul>
@@ -36,16 +37,30 @@
         <button class="btn btn-game-rules">RULES</button>
         <div class="rules hide">
           <button class="close-modal">&times;</button>
-          <h2>Pig Game Rules</h2>
+          <h2>Game Rules</h2>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim,
-            magni expedita nam neque consequatur dolorum quisquam! Perspiciatis
-            qui sequi quisquam.
+            Players take turns rolling the die. Each time, a player repeatedly
+            rolls a die until either a 1 is rolled or the player decides to
+            "hold" their accumulated rolling score.
           </p>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Repudiandae blanditiis eaque facere modi aliquid in itaque eveniet
-            nam veritatis nemo!
+            In the event where a player rolls a 1, they score nothing, lose
+            their turn and it becomes the next player's turn to roll the dice.
+            In the player rolls any other number, that roll of dice is added to
+            their previous roll, if any, and the accumulated roll total for that
+            player get displayed and the player's turn continues. In the event
+            where a player chooses to "hold", meaning to "cash out" their
+            accumulated roll total, that total is added to their current score,
+            and it becomes the next player's turn.
+          </p>
+          <p>
+            For example, the first player, Donald, begins a turn with a roll of
+            5. Donald could hold and score 5 points, but chooses to roll again.
+            Donald rolls a 2, and could hold with a turn total of 7 points, but
+            chooses to roll again. Donald rolls a 1, and must end his turn
+            without scoring. The next player, Alexis, rolls the sequence
+            4-5-3-5-5, after which she chooses to hold, and adds her turn total
+            of 22 points to her score.
           </p>
         </div>
       </div>
@@ -89,7 +104,7 @@
             <span class="player-1-score">0</span>
           </div>
         </div>
-        <div class="overlay hide"></div>
+        <!-- <div class="overlay hide"></div> -->
       </div>
       <div id="right-side" class="" data-player="2">
         <div class="player-2-layout">
