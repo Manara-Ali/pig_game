@@ -14,6 +14,11 @@
 
 // For example, the first player, Donald, begins a turn with a roll of 5. Donald could hold and score 5 points, but chooses to roll again. Donald rolls a 2, and could hold with a turn total of 7 points, but chooses to roll again. Donald rolls a 1, and must end his turn without scoring. The next player, Alexis, rolls the sequence 4-5-3-5-5, after which she chooses to hold, and adds her turn total of 22 points to her score.
 
+//////// GAME STATE VARIABLES ////////
+let diceNumber;
+let rollingScorePlayer1 = 0;
+let currentScorePlayer1 = 0;
+
 // ELEMENTS SELECTION
 /////////////////////////////////////////////////////////////////////////////////////////////
 const body = document.querySelector("body");
@@ -65,16 +70,27 @@ const randomDiceNumber = function (min, max) {
 
 //////// FUNCTIONALITY BUTTON DELEGATION ////////
 const functionalities = function (e) {
+  diceNumber = randomDiceNumber(1, 6);
   if (e.target.classList.contains("btn-roll-dice")) {
-    diceImage.src = `./images/dice-${randomDiceNumber(1, 6)}.png`;
+    diceImage.src = `./images/dice-${diceNumber}.png`;
+    rollingScorePlayer1 += diceNumber;
+    document.querySelector(
+      ".player-1-rolling-score"
+    ).textContent = rollingScorePlayer1;
+  } else if (e.target.classList.contains("btn-hold")) {
+    currentScorePlayer1 += rollingScorePlayer1;
+    document.querySelector(".player-1-score").textContent = currentScorePlayer1;
+    rollingScorePlayer1 = 0;
+    document.querySelector(
+      ".player-1-rolling-score"
+    ).textContent = rollingScorePlayer1;
   }
   if (e.target.classList.contains("functionality-buttons"))
     // Guard Clause
     return;
 };
 
-// EVENT HANDLERS
-/////////////////////////////////////////////////////////////////////////////////////////////
+//////// EVENT HANDLERS ////////
 directions.addEventListener("click", directionFunction);
 closeModal.addEventListener("click", hideModalClick);
 overlay.addEventListener("click", hideModalClick);
