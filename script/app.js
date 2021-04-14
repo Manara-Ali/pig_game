@@ -17,9 +17,9 @@
 //////// GAME STATE VARIABLES ////////
 let diceNumber;
 let activePlayer;
+let winningScore;
 let rollingScorePlayer = 0;
 let activePlayerScore = 0;
-const winningScore = 50;
 
 // ELEMENTS SELECTION
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,6 +38,7 @@ const leftDot = document.querySelector(".dot-1");
 const rightDot = document.querySelector(".dot-2");
 const diceContainer = document.getElementById("dice");
 const newGameBtn = document.querySelector(".btn-new-game");
+const inputData = document.getElementById("winning-score-input");
 
 // FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +164,7 @@ const functionalities = function (e) {
       const playerDivLayout = document.querySelector(
         `.player-${activePlayer}-layout`
       );
-      console.log(playerDivLayout, "won");
+      console.log(`${activePlayer} won!`);
     }
   }
   // }
@@ -218,6 +219,12 @@ const restartGame = function (e) {
   }
 };
 
+const setWinningNumber = function (e) {
+  if (e.code === "Enter") {
+    winningScore = +inputData.value;
+  }
+};
+
 ////////////////////////////////////////////////////////////////////  EVENT HANDLERS /////////////////////////////////////////////////////
 directions.addEventListener("click", directionFunction);
 closeModal.addEventListener("click", hideModalClick);
@@ -225,3 +232,4 @@ overlay.addEventListener("click", hideModalClick);
 body.addEventListener("keydown", hideModalESC);
 functionalityParentElement.addEventListener("click", functionalities);
 newGameBtn.addEventListener("click", restartGame);
+inputData.addEventListener("keypress", setWinningNumber);
