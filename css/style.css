@@ -285,3 +285,13 @@ body {
 .active-player {
   background-color: #ccc;
 }
+
+/* WINNER CLASS  */
+.winner {
+  color: #e49756;
+  font-size: 2rem;
+  font-weight: 200;
+  position: absolute;
+  transform: rotate(-45deg);
+  background-color: #444;
+}

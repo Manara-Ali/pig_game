@@ -16,9 +16,10 @@
 
 //////// GAME STATE VARIABLES ////////
 let diceNumber;
-let player;
+let activePlayer;
 let rollingScorePlayer = 0;
 let activePlayerScore = 0;
+const winningScore = 50;
 
 // ELEMENTS SELECTION
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +37,7 @@ const rightSide = document.querySelector("#right-side");
 const leftDot = document.querySelector(".dot-1");
 const rightDot = document.querySelector(".dot-2");
 const diceContainer = document.getElementById("dice");
+const newGameBtn = document.querySelector(".btn-new-game");
 
 // FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,15 +87,15 @@ const switchTurn = function () {
 };
 
 //////// FUNCTION TO RETRIEVE PLAYER NUMBER ////////
-const activePlayer = function () {
+const currentPlayer = function () {
   return leftSide.classList.contains("active-player") ? 1 : 2;
 };
 
-player = activePlayer() + "";
+activePlayer = currentPlayer() + "";
 
 //////// FUNCTION TO TRACK CURRENT SCORE ////////
 const trackCurrentScore = function () {
-  return +document.querySelector(`.player-${player}-score`).textContent;
+  return +document.querySelector(`.player-${activePlayer}-score`).textContent;
 };
 
 //////// RANDOM FUNCTION BETWEEN 1 AND 6 ////////
@@ -101,9 +103,8 @@ const randomDiceNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-//////// FUNCTIONALITY BUTTON DELEGATION ////////
+//////// FUNCTIONALITY BUTTON DELEGATION FOR 'ROLL DICE' AND 'HOLD' BUTTONS ////////
 const functionalities = function (e) {
-  diceContainer.classList.remove("hide");
   // Keep track of the score
   diceNumber = randomDiceNumber(1, 6);
 
@@ -111,38 +112,116 @@ const functionalities = function (e) {
 
   // Assuming the 'roll dice' was clicked
   if (e.target.classList.contains("btn-roll-dice")) {
+    diceContainer.classList.remove("hide");
     // Retrieve the corresponding image of the dice
     diceImage.src = `./images/dice-${diceNumber}.png`;
-    // Update player rolling score
-    rollingScorePlayer += diceNumber;
-    document.querySelector(
-      `.player-${player}-rolling-score`
-    ).textContent = rollingScorePlayer;
-    // Assuming the 'hold' button was clicked
-  } else if (e.target.classList.contains("btn-hold")) {
+
+    ///////// EDGE CASES, USER ROLLS A 1
+    if (diceNumber === 1) {
+      rollingScorePlayer = 0;
+      switchTurn();
+      // Reset the player's rolling score back to zero
+      rollingScorePlayer = 0;
+      // Update the DOM to reflect the resetted score
+      document.querySelector(
+        `.player-${activePlayer}-rolling-score`
+      ).textContent = rollingScorePlayer;
+      activePlayer = currentPlayer();
+      activePlayerScore = trackCurrentScore();
+    } else {
+      // Update player rolling score
+      rollingScorePlayer += diceNumber;
+      // Update the rolling score on the DOM
+      document.querySelector(
+        `.player-${activePlayer}-rolling-score`
+      ).textContent = rollingScorePlayer;
+    }
+  }
+  // Assuming the 'hold' button was clicked
+  if (e.target.classList.contains("btn-hold")) {
     // Transfer the rolling score to the player's current score
     activePlayerScore += rollingScorePlayer;
     // Update the DOM to reflect that score
     document.querySelector(
-      `.player-${player}-score`
+      `.player-${activePlayer}-score`
     ).textContent = activePlayerScore;
     // Reset the player's rolling score back to zero
     rollingScorePlayer = 0;
     // Update the DOM to reflect the resetted score
     document.querySelector(
-      `.player-${player}-rolling-score`
+      `.player-${activePlayer}-rolling-score`
     ).textContent = rollingScorePlayer;
-    switchTurn();
-    player = activePlayer();
-    activePlayerScore = trackCurrentScore();
+    ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
+    if (
+      +document.querySelector(`.player-${activePlayer}-score`).textContent <
+      winningScore
+    ) {
+      switchTurn();
+      activePlayer = currentPlayer();
+      activePlayerScore = trackCurrentScore();
+    } else {
+      const playerDivLayout = document.querySelector(
+        `.player-${activePlayer}-layout`
+      );
+      console.log(playerDivLayout, "won");
+    }
   }
+  // }
+  // Assuming the 'hold' button was clicked
+  // } else if (e.target.classList.contains("btn-hold")) {
+  //   // Transfer the rolling score to the player's current score
+  //   activePlayerScore += rollingScorePlayer;
+  //   // Update the DOM to reflect that score
+  //   document.querySelector(
+  //     `.player-${activePlayer}-score`
+  //   ).textContent = activePlayerScore;
+  //   // Reset the player's rolling score back to zero
+  //   rollingScorePlayer = 0;
+  //   // Update the DOM to reflect the resetted score
+  //   document.querySelector(
+  //     `.player-${activePlayer}-rolling-score`
+  //   ).textContent = rollingScorePlayer;
+  //   ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
+  //   if (
+  //     +document.querySelector(`.player-${activePlayer}-score`).textContent <
+  //     winningScore
+  //   ) {
+  //     switchTurn();
+  //     activePlayer = currentPlayer();
+  //     activePlayerScore = trackCurrentScore();
+  //   } else {
+  //     const playerDivLayout = document.querySelector(
+  //       `.player-${activePlayer}-layout`
+  //     );
+  //     console.log(playerDivLayout);
+  //   }
+  // }
   // Guard Clause
   if (e.target.classList.contains("functionality-buttons")) return;
 };
 
-//////// EVENT HANDLERS ////////
+//////// NEW GAME FUNCTIONALITY ////////
+const restartGame = function (e) {
+  if (e.target.classList.contains("btn-new-game")) {
+    diceContainer.classList.add("hide");
+    rollingScorePlayer = 0;
+    activePlayerScore = 0;
+    document.querySelector(".player-1-score").textContent = 0;
+    document.querySelector(".player-2-score").textContent = 0;
+    document.querySelector(".player-1-rolling-score").textContent = 0;
+    document.querySelector(".player-2-rolling-score").textContent = 0;
+    rightSide.classList.remove("active-player");
+    leftSide.classList.add("active-player");
+    rightDot.classList.add("hide");
+    leftDot.classList.remove("hide");
+    activePlayer = 1;
+  }
+};
+
+////////////////////////////////////////////////////////////////////  EVENT HANDLERS /////////////////////////////////////////////////////
 directions.addEventListener("click", directionFunction);
 closeModal.addEventListener("click", hideModalClick);
 overlay.addEventListener("click", hideModalClick);
 body.addEventListener("keydown", hideModalESC);
 functionalityParentElement.addEventListener("click", functionalities);
+newGameBtn.addEventListener("click", restartGame);
