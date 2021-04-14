@@ -39,6 +39,7 @@ const rightDot = document.querySelector(".dot-2");
 const diceContainer = document.getElementById("dice");
 const newGameBtn = document.querySelector(".btn-new-game");
 const inputData = document.getElementById("winning-score-input");
+const addBtn = document.querySelector(".add-winning-number");
 
 // FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -225,6 +226,11 @@ const setWinningNumber = function (e) {
   }
 };
 
+const setWinningBtn = function () {
+  winningScore = 0;
+  winningScore = +inputData.value;
+};
+
 ////////////////////////////////////////////////////////////////////  EVENT HANDLERS /////////////////////////////////////////////////////
 directions.addEventListener("click", directionFunction);
 closeModal.addEventListener("click", hideModalClick);
@@ -233,3 +239,4 @@ body.addEventListener("keydown", hideModalESC);
 functionalityParentElement.addEventListener("click", functionalities);
 newGameBtn.addEventListener("click", restartGame);
 inputData.addEventListener("keypress", setWinningNumber);
+addBtn.addEventListener("click", setWinningBtn);
