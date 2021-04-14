@@ -35,6 +35,7 @@ const leftSide = document.querySelector("#left-side");
 const rightSide = document.querySelector("#right-side");
 const leftDot = document.querySelector(".dot-1");
 const rightDot = document.querySelector(".dot-2");
+const diceContainer = document.getElementById("dice");
 
 // FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,6 +103,7 @@ const randomDiceNumber = function (min, max) {
 
 //////// FUNCTIONALITY BUTTON DELEGATION ////////
 const functionalities = function (e) {
+  diceContainer.classList.remove("hide");
   // Keep track of the score
   diceNumber = randomDiceNumber(1, 6);
 
@@ -118,7 +120,6 @@ const functionalities = function (e) {
     ).textContent = rollingScorePlayer;
     // Assuming the 'hold' button was clicked
   } else if (e.target.classList.contains("btn-hold")) {
-    // debugger;
     // Transfer the rolling score to the player's current score
     activePlayerScore += rollingScorePlayer;
     // Update the DOM to reflect that score
