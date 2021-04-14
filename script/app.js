@@ -30,6 +30,10 @@ const functionalityParentElement = document.querySelector(
   ".functionality-buttons"
 );
 const diceImage = document.querySelector(".current-dice");
+const leftSide = document.querySelector("#left-side");
+const rightSide = document.querySelector("#right-side");
+const leftDot = document.querySelector(".dot-1");
+const rightDot = document.querySelector(".dot-2");
 
 // FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +67,21 @@ const hideModalESC = function (e) {
   }
 };
 
+//////// FUNCTION TO SWITCH OUT PLAYERS' TURNS ////////
+const switchTurn = function () {
+  if (leftSide.classList.contains("active-player")) {
+    leftSide.classList.remove("active-player");
+    rightSide.classList.add("active-player");
+    leftDot.classList.add("hide");
+    rightDot.classList.remove("hide");
+  } else {
+    rightSide.classList.remove("active-player");
+    leftSide.classList.add("active-player");
+    rightDot.classList.add("hide");
+    leftDot.classList.remove("hide");
+  }
+};
+
 //////// RANDOM FUNCTION BETWEEN 1 AND 6 ////////
 const randomDiceNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -70,24 +89,37 @@ const randomDiceNumber = function (min, max) {
 
 //////// FUNCTIONALITY BUTTON DELEGATION ////////
 const functionalities = function (e) {
+  // Keep track of the score
   diceNumber = randomDiceNumber(1, 6);
+
+  // Identify which button was clicked
+
+  // Assuming the 'roll dice' was clicked
   if (e.target.classList.contains("btn-roll-dice")) {
+    // Retrieve the corresponding image of the dice
     diceImage.src = `./images/dice-${diceNumber}.png`;
+    // Update player rolling score
     rollingScorePlayer1 += diceNumber;
     document.querySelector(
       ".player-1-rolling-score"
     ).textContent = rollingScorePlayer1;
+
+    // Assuming the 'hold' button was clicked
   } else if (e.target.classList.contains("btn-hold")) {
+    // Transfer the rolling score to the player's current score
     currentScorePlayer1 += rollingScorePlayer1;
+    // Update the DOM to reflect that score
     document.querySelector(".player-1-score").textContent = currentScorePlayer1;
+    // Reset the player's rolling score back to zero
     rollingScorePlayer1 = 0;
+    // Update the DOM to reflect the resetted score
     document.querySelector(
       ".player-1-rolling-score"
     ).textContent = rollingScorePlayer1;
+    switchTurn();
   }
-  if (e.target.classList.contains("functionality-buttons"))
-    // Guard Clause
-    return;
+  // Guard Clause
+  if (e.target.classList.contains("functionality-buttons")) return;
 };
 
 //////// EVENT HANDLERS ////////

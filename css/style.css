@@ -144,8 +144,8 @@ body {
   padding: 50px 100px 50px;
 }
 
-#left-side > .player-1-layout > .player-1 > .dot,
-#right-side > .player-2-layout > .player-2 > .dot {
+#left-side > .player-1-layout > .player-1 > .dot-1,
+#right-side > .player-2-layout > .player-2 > .dot-2 {
   width: 10px;
   height: 10px;
   background-color: red;
