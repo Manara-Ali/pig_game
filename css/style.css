@@ -245,17 +245,36 @@ body {
 /* WINNING SCORE INPUT BOX */
 #wrapper > #winning-score {
   position: absolute;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   bottom: 40px;
   left: 42.5%;
+}
+
+#wrapper > #winning-score > .add-winning-number {
+  border: none;
+  outline: none;
+  background: none;
+  color: #555;
+  position: absolute;
+  /* display: flex; */
+  /* flex-direction: column; */
+  bottom: -5px;
+  left: 99%;
+  font-size: 30.5px;
+}
+
+#wrapper > #winning-score > .add-winning-number:active {
+  transform: translate(-2px, 2px);
 }
 
 #wrapper > #winning-score > .winning-score-box {
   padding: 5px;
   background-color: #f4f4f4;
   border: 1px solid #555;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  /* border-radius: 5px; */
   outline: none;
 }
 
