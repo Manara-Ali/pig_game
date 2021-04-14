@@ -24,6 +24,7 @@ body {
   background-color: #fff;
   border-radius: 15px;
   display: flex;
+  position: relative;
 }
 
 /* GAME DIRECTIONS */
@@ -46,6 +47,12 @@ body {
 }
 
 .btn-game-selection {
+  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  /* box-shadow: 4px 6px 8px #333; */
+  color: #444;
   box-shadow: 4px 6px 8px #ccc;
 }
 
@@ -55,11 +62,17 @@ body {
 }
 
 .btn-game-rules {
-  box-shadow: 4px 6px 8px #444;
+  /* box-shadow: 4px 6px 8px #444; */
+  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: 4px 6px 8px #333;
+  color: #444;
 }
 
 .btn-game-rules:hover {
-  /* transform: rotate(360deg) scale(1.2); /// DONT FORGET TO REMOVE THIS BEFORE SUBMISSION */
+  transform: rotate(360deg) scale(1.2);
   transition: transform 1s ease;
 }
 
@@ -95,7 +108,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(3px);
   z-index: 5;
 }
@@ -199,4 +212,60 @@ body {
 #right-side > .player-2-layout > .current-score-2 > .player-2-score {
   font-size: 1.5rem;
   font-weight: 400;
+}
+
+/* FUNCTIONALITY BUTTONS */
+#wrapper > .functionality-buttons {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 30px;
+  left: 45.5%;
+}
+
+#wrapper > .functionality-buttons > .functionality {
+  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: 4px 6px 8px #333;
+  color: #444;
+}
+
+#wrapper > .functionality-buttons > .functionality:active {
+  transform: translate(-3px, 3px);
+}
+
+#wrapper > .functionality-buttons > .btn-1 {
+  margin-bottom: 220px;
+}
+
+#wrapper > .functionality-buttons > .btn-2 {
+  margin-bottom: 20px;
+}
+
+/* WINNING SCORE INPUT BOX */
+#wrapper > #winning-score {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 40px;
+  left: 42.5%;
+}
+
+#wrapper > #winning-score > .winning-score-box {
+  padding: 5px;
+  background-color: #f4f4f4;
+  border: 1px solid #555;
+  border-radius: 5px;
+  outline: none;
+}
+
+#wrapper > #winning-score > .winning-score-box:focus {
+  background-image: linear-gradient(to bottom right, #ccc, #fff);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #333;
+  text-align: center;
 }
