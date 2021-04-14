@@ -40,6 +40,7 @@ const diceContainer = document.getElementById("dice");
 const newGameBtn = document.querySelector(".btn-new-game");
 const inputData = document.getElementById("winning-score-input");
 const addBtn = document.querySelector(".add-winning-number");
+const winningScoreDiv = document.querySelector("#winning-score");
 
 // FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -222,13 +223,20 @@ const restartGame = function (e) {
 
 const setWinningNumber = function (e) {
   if (e.code === "Enter") {
+    winningScore = 0;
     winningScore = +inputData.value;
+    const html = `<p>Final Score is: <span class="final-score">${winningScore}</span></p>`;
+    winningScoreDiv.innerHTML = "";
+    winningScoreDiv.innerHTML = html;
   }
 };
 
 const setWinningBtn = function () {
   winningScore = 0;
   winningScore = +inputData.value;
+  const html = `<p>Final Score is: <span class="final-score">${winningScore}</span></p>`;
+  winningScoreDiv.innerHTML = "";
+  winningScoreDiv.innerHTML = html;
 };
 
 ////////////////////////////////////////////////////////////////////  EVENT HANDLERS /////////////////////////////////////////////////////

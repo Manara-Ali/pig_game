@@ -314,3 +314,8 @@ body {
   transform: rotate(-45deg);
   background-color: #444;
 }
+
+/* FINAL SCORE */
+.final-score {
+  color: #e04b5a;
+}
