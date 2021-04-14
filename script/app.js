@@ -21,6 +21,10 @@ const directions = document.querySelector("#directions");
 const rules = document.querySelector(".rules");
 const overlay = document.querySelector(".overlay");
 const closeModal = document.querySelector(".close-modal");
+const functionalityParentElement = document.querySelector(
+  ".functionality-buttons"
+);
+const diceImage = document.querySelector(".current-dice");
 
 // FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +45,7 @@ const directionFunction = function (e) {
   if (directions) return;
 };
 
+//////// CLOSE POP-UP MODAL WINDOW ////////
 const hideModalClick = function () {
   rules.classList.add("hide");
   overlay.classList.add("hide");
@@ -53,9 +58,25 @@ const hideModalESC = function (e) {
   }
 };
 
+//////// RANDOM FUNCTION BETWEEN 1 AND 6 ////////
+const randomDiceNumber = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+//////// FUNCTIONALITY BUTTON DELEGATION ////////
+const functionalities = function (e) {
+  if (e.target.classList.contains("btn-roll-dice")) {
+    diceImage.src = `./images/dice-${randomDiceNumber(1, 6)}.png`;
+  }
+  if (e.target.classList.contains("functionality-buttons"))
+    // Guard Clause
+    return;
+};
+
 // EVENT HANDLERS
 /////////////////////////////////////////////////////////////////////////////////////////////
 directions.addEventListener("click", directionFunction);
 closeModal.addEventListener("click", hideModalClick);
 overlay.addEventListener("click", hideModalClick);
 body.addEventListener("keydown", hideModalESC);
+functionalityParentElement.addEventListener("click", functionalities);

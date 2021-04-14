@@ -45,10 +45,17 @@
       </div>
     </div>
     <div id="wrapper">
+      <div id="dice">
+        <img
+          src="./images/dice-1.png"
+          alt="image of a dice"
+          class="current-dice"
+        />
+      </div>
       <div class="functionality-buttons">
-        <button class="btn functionality btn-1">NEW GAME</button>
-        <button class="btn functionality btn-2">ROLL DICE</button>
-        <button class="btn functionality btn-3">HOLD</button>
+        <button class="btn functionality btn-new-game">NEW GAME</button>
+        <button class="btn functionality btn-roll-dice">ROLL DICE</button>
+        <button class="btn functionality btn-hold">HOLD</button>
       </div>
       <div id="winning-score">
         <input
@@ -58,7 +65,7 @@
           class="winning-score-box"
         />
       </div>
-      <div id="left-side">
+      <div id="left-side" class="active-player">
         <div class="player-1-layout">
           <div class="player-1">
             <h2>Player 1</h2>

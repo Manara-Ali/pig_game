@@ -51,7 +51,6 @@ body {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  /* box-shadow: 4px 6px 8px #333; */
   color: #444;
   box-shadow: 4px 6px 8px #ccc;
 }
@@ -129,7 +128,6 @@ body {
 #left-side {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  background-color: #f4f4f4;
 }
 
 #right-side {
@@ -236,11 +234,11 @@ body {
   transform: translate(-3px, 3px);
 }
 
-#wrapper > .functionality-buttons > .btn-1 {
+#wrapper > .functionality-buttons > .btn-new-game {
   margin-bottom: 220px;
 }
 
-#wrapper > .functionality-buttons > .btn-2 {
+#wrapper > .functionality-buttons > .btn-roll-dice {
   margin-bottom: 20px;
 }
 
@@ -268,4 +266,22 @@ body {
   background-repeat: no-repeat;
   color: #333;
   text-align: center;
+}
+
+/* DICE */
+#wrapper > #dice > .current-dice {
+  display: inline-block;
+  box-shadow: 4px 6px 8px #333;
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 125px;
+  left: 46.5%;
+}
+
+/* ACTIVE PLAYER CLASS */
+.active-player {
+  background-color: #ccc;
 }
