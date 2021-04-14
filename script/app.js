@@ -207,6 +207,18 @@ const functionalities = function (e) {
 const restartGame = function (e) {
   if (e.target.classList.contains("btn-new-game")) {
     diceContainer.classList.add("hide");
+    const html = `<input
+    type="text"
+    name="winning-score-input"
+    id="winning-score-input"
+    class="winning-score-box"
+    placeholder="Enter Winning Score"
+  />
+  <button class="add-winning-number">
+    <i class="fas fa-plus-square"></i>
+  </button>`;
+    winningScoreDiv.innerHTML = "";
+    winningScoreDiv.innerHTML = html;
     rollingScorePlayer = 0;
     activePlayerScore = 0;
     document.querySelector(".player-1-score").textContent = 0;

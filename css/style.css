@@ -56,7 +56,7 @@ body {
 }
 
 .btn-game-selection:hover {
-  /* transform: rotate(360deg) scale(1.2); /// DONT FORGET TO REMOVE THIS BEFORE SUBMISSION*/
+  transform: rotate(360deg) scale(1.2);
   transition: transform 1s ease;
 }
 
