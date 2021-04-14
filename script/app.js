@@ -16,8 +16,9 @@
 
 //////// GAME STATE VARIABLES ////////
 let diceNumber;
-let rollingScorePlayer1 = 0;
-let currentScorePlayer1 = 0;
+let player;
+let rollingScorePlayer = 0;
+let activePlayerScore = 0;
 
 // ELEMENTS SELECTION
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,6 +83,18 @@ const switchTurn = function () {
   }
 };
 
+//////// FUNCTION TO RETRIEVE PLAYER NUMBER ////////
+const activePlayer = function () {
+  return leftSide.classList.contains("active-player") ? 1 : 2;
+};
+
+player = activePlayer() + "";
+
+//////// FUNCTION TO TRACK CURRENT SCORE ////////
+const trackCurrentScore = function () {
+  return +document.querySelector(`.player-${player}-score`).textContent;
+};
+
 //////// RANDOM FUNCTION BETWEEN 1 AND 6 ////////
 const randomDiceNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -99,24 +112,28 @@ const functionalities = function (e) {
     // Retrieve the corresponding image of the dice
     diceImage.src = `./images/dice-${diceNumber}.png`;
     // Update player rolling score
-    rollingScorePlayer1 += diceNumber;
+    rollingScorePlayer += diceNumber;
     document.querySelector(
-      ".player-1-rolling-score"
-    ).textContent = rollingScorePlayer1;
-
+      `.player-${player}-rolling-score`
+    ).textContent = rollingScorePlayer;
     // Assuming the 'hold' button was clicked
   } else if (e.target.classList.contains("btn-hold")) {
+    // debugger;
     // Transfer the rolling score to the player's current score
-    currentScorePlayer1 += rollingScorePlayer1;
+    activePlayerScore += rollingScorePlayer;
     // Update the DOM to reflect that score
-    document.querySelector(".player-1-score").textContent = currentScorePlayer1;
+    document.querySelector(
+      `.player-${player}-score`
+    ).textContent = activePlayerScore;
     // Reset the player's rolling score back to zero
-    rollingScorePlayer1 = 0;
+    rollingScorePlayer = 0;
     // Update the DOM to reflect the resetted score
     document.querySelector(
-      ".player-1-rolling-score"
-    ).textContent = rollingScorePlayer1;
+      `.player-${player}-rolling-score`
+    ).textContent = rollingScorePlayer;
     switchTurn();
+    player = activePlayer();
+    activePlayerScore = trackCurrentScore();
   }
   // Guard Clause
   if (e.target.classList.contains("functionality-buttons")) return;
