@@ -1,3 +1,4 @@
+"use scrict";
 // GAME PLAY
 
 // CHOSES A FINAL SCORE TO BE THE WINNING SCORE
@@ -18,6 +19,8 @@
 let diceNumber;
 let activePlayer;
 let winningScore;
+let winningPlayerId;
+let isGameOn = true;
 let rollingScorePlayer = 0;
 let activePlayerScore = 0;
 
@@ -98,7 +101,8 @@ activePlayer = currentPlayer() + "";
 
 //////// FUNCTION TO TRACK CURRENT SCORE ////////
 const trackCurrentScore = function () {
-  return +document.querySelector(`.player-${activePlayer}-score`).textContent;
+  return +document.querySelector(`.player-${activePlayer}-final-score`)
+    .textContent;
 };
 
 //////// RANDOM FUNCTION BETWEEN 1 AND 6 ////////
@@ -113,139 +117,234 @@ const functionalities = function (e) {
 
   // Identify which button was clicked
 
-  // Assuming the 'roll dice' was clicked
-  if (e.target.classList.contains("btn-roll-dice")) {
-    diceContainer.classList.remove("hide");
-    // Retrieve the corresponding image of the dice
-    diceImage.src = `./images/dice-${diceNumber}.png`;
+  // CONTROLLING THE GAME STATE
+  if (isGameOn) {
+    // Assuming the 'roll dice' was clicked
+    if (e.target.classList.contains("btn-roll-dice")) {
+      diceContainer.classList.remove("hide");
+      // Retrieve the corresponding image of the dice
+      diceImage.src = `./images/dice-${diceNumber}.png`;
 
-    ///////// EDGE CASES, USER ROLLS A 1
-    if (diceNumber === 1) {
-      rollingScorePlayer = 0;
-      switchTurn();
+      ///////// EDGE CASES, USER ROLLS A 1
+      if (diceNumber === 1) {
+        rollingScorePlayer = 0;
+        switchTurn();
+        // Reset the player's rolling score back to zero
+        rollingScorePlayer = 0;
+        // Update the DOM to reflect the resetted score
+        document.querySelector(
+          `.player-${activePlayer}-current-score`
+        ).textContent = rollingScorePlayer;
+        activePlayer = currentPlayer();
+        activePlayerScore = trackCurrentScore();
+      } else {
+        // Update player rolling score
+        rollingScorePlayer += diceNumber;
+        // Update the rolling score on the DOM
+        document.querySelector(
+          `.player-${activePlayer}-current-score`
+        ).textContent = rollingScorePlayer;
+      }
+    }
+    // Assuming the 'hold' button was clicked
+    if (e.target.classList.contains("btn-hold")) {
+      // Transfer the rolling score to the player's current score
+      activePlayerScore += rollingScorePlayer;
+      // Update the DOM to reflect that score
+      document.querySelector(
+        `.player-${activePlayer}-final-score`
+      ).textContent = activePlayerScore;
       // Reset the player's rolling score back to zero
       rollingScorePlayer = 0;
       // Update the DOM to reflect the resetted score
       document.querySelector(
-        `.player-${activePlayer}-rolling-score`
+        `.player-${activePlayer}-current-score`
       ).textContent = rollingScorePlayer;
-      activePlayer = currentPlayer();
-      activePlayerScore = trackCurrentScore();
-    } else {
-      // Update player rolling score
-      rollingScorePlayer += diceNumber;
-      // Update the rolling score on the DOM
-      document.querySelector(
-        `.player-${activePlayer}-rolling-score`
-      ).textContent = rollingScorePlayer;
+      ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
+      if (
+        +document.querySelector(`.player-${activePlayer}-final-score`)
+          .textContent < winningScore
+      ) {
+        switchTurn();
+        activePlayer = currentPlayer();
+        activePlayerScore = trackCurrentScore();
+      } else {
+        // document
+        //   .querySelector(`.player-${activePlayer}-layout`)
+        //   .classList.add("winner");
+
+        winningPlayerId = document.querySelector(`.player-${activePlayer}`)
+          .dataset.player;
+        document.querySelector(`#${winningPlayerId}`).classList.add("winner");
+        console.log(`.player-${activePlayer} won!`);
+        // CHANGE THE STATE OF THE GAME
+        isGameOn = false;
+      }
     }
+    // Guard Clause
+    if (e.target.classList.contains("functionality-buttons")) return;
   }
-  // Assuming the 'hold' button was clicked
-  if (e.target.classList.contains("btn-hold")) {
-    // Transfer the rolling score to the player's current score
-    activePlayerScore += rollingScorePlayer;
-    // Update the DOM to reflect that score
-    document.querySelector(
-      `.player-${activePlayer}-score`
-    ).textContent = activePlayerScore;
-    // Reset the player's rolling score back to zero
-    rollingScorePlayer = 0;
-    // Update the DOM to reflect the resetted score
-    document.querySelector(
-      `.player-${activePlayer}-rolling-score`
-    ).textContent = rollingScorePlayer;
-    ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
-    if (
-      +document.querySelector(`.player-${activePlayer}-score`).textContent <
-      winningScore
-    ) {
-      switchTurn();
-      activePlayer = currentPlayer();
-      activePlayerScore = trackCurrentScore();
-    } else {
-      const playerDivLayout = document.querySelector(
-        `.player-${activePlayer}-layout`
-      );
-      console.log(`${activePlayer} won!`);
-    }
-  }
+  // // Assuming the 'roll dice' was clicked
+  // if (e.target.classList.contains("btn-roll-dice")) {
+  //   diceContainer.classList.remove("hide");
+  //   // Retrieve the corresponding image of the dice
+  //   diceImage.src = `./images/dice-${diceNumber}.png`;
+
+  //   ///////// EDGE CASES, USER ROLLS A 1
+  //   if (diceNumber === 1) {
+  //     rollingScorePlayer = 0;
+  //     switchTurn();
+  //     // Reset the player's rolling score back to zero
+  //     rollingScorePlayer = 0;
+  //     // Update the DOM to reflect the resetted score
+  //     document.querySelector(
+  //       `.player-${activePlayer}-current-score`
+  //     ).textContent = rollingScorePlayer;
+  //     activePlayer = currentPlayer();
+  //     activePlayerScore = trackCurrentScore();
+  //   } else {
+  //     // Update player rolling score
+  //     rollingScorePlayer += diceNumber;
+  //     // Update the rolling score on the DOM
+  //     document.querySelector(
+  //       `.player-${activePlayer}-current-score`
+  //     ).textContent = rollingScorePlayer;
+  //   }
   // }
-  // Assuming the 'hold' button was clicked
-  // } else if (e.target.classList.contains("btn-hold")) {
+  // // Assuming the 'hold' button was clicked
+  // if (e.target.classList.contains("btn-hold")) {
   //   // Transfer the rolling score to the player's current score
   //   activePlayerScore += rollingScorePlayer;
   //   // Update the DOM to reflect that score
   //   document.querySelector(
-  //     `.player-${activePlayer}-score`
+  //     `.player-${activePlayer}-final-score`
   //   ).textContent = activePlayerScore;
   //   // Reset the player's rolling score back to zero
   //   rollingScorePlayer = 0;
   //   // Update the DOM to reflect the resetted score
   //   document.querySelector(
-  //     `.player-${activePlayer}-rolling-score`
+  //     `.player-${activePlayer}-current-score`
   //   ).textContent = rollingScorePlayer;
   //   ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
   //   if (
-  //     +document.querySelector(`.player-${activePlayer}-score`).textContent <
-  //     winningScore
+  //     +document.querySelector(`.player-${activePlayer}-final-score`)
+  //       .textContent < winningScore
   //   ) {
   //     switchTurn();
   //     activePlayer = currentPlayer();
   //     activePlayerScore = trackCurrentScore();
   //   } else {
-  //     const playerDivLayout = document.querySelector(
-  //       `.player-${activePlayer}-layout`
-  //     );
-  //     console.log(playerDivLayout);
+  //     // document
+  //     //   .querySelector(`.player-${activePlayer}-layout`)
+  //     //   .classList.add("winner");
+
+  //     const winningPlayerId = document.querySelector(`.player-${activePlayer}`)
+  //       .dataset.player;
+  //     document.querySelector(`#${winningPlayerId}`).classList.add("winner");
+  //     console.log(`.player-${activePlayer} won!`);
   //   }
   // }
-  // Guard Clause
-  if (e.target.classList.contains("functionality-buttons")) return;
+  // // Guard Clause
+  // if (e.target.classList.contains("functionality-buttons")) return;
 };
 
 //////// NEW GAME FUNCTIONALITY ////////
 const restartGame = function (e) {
+  //   if (e.target.classList.contains("btn-new-game")) {
+  //     diceContainer.classList.add("hide");
+  //     const html = `<input
+  //     type="text"
+  //     name="winning-score-input"
+  //     id="winning-score-input"
+  //     class="winning-score-box"
+  //     placeholder="Enter Winning Score"
+  //   />
+  //   <button class="add-winning-number">
+  //     <i class="fas fa-plus-square"></i>
+  //   </button>`;
+  //     winningScoreDiv.innerHTML = "";
+  //     winningScoreDiv.insertAdjacentHTML("afterbegin", html);
+  //     rollingScorePlayer = 0;
+  //     activePlayerScore = 0;
+  //     if (winningPlayerId) {
+  //       document.querySelector(`#${winningPlayerId}`).classList.remove("winner");
+  //     }
+  //     document.querySelector(".player-1-current-score").textContent = 0;
+  //     document.querySelector(".player-2-current-score").textContent = 0;
+  //     document.querySelector(".player-1-final-score").textContent = 0;
+  //     document.querySelector(".player-2-final-score").textContent = 0;
+  //     rightSide.classList.remove("active-player");
+  //     leftSide.classList.add("active-player");
+  //     rightDot.classList.add("hide");
+  //     leftDot.classList.remove("hide");
+  //     isGameOn = true;
+  //     activePlayer = 1;
+  //   }
   if (e.target.classList.contains("btn-new-game")) {
     diceContainer.classList.add("hide");
-    const html = `<input
-    type="text"
-    name="winning-score-input"
-    id="winning-score-input"
-    class="winning-score-box"
-    placeholder="Enter Winning Score"
-  />
-  <button class="add-winning-number">
-    <i class="fas fa-plus-square"></i>
-  </button>`;
+
+    // Clear inner div
     winningScoreDiv.innerHTML = "";
-    winningScoreDiv.innerHTML = html;
+    // Build the input button
+    const inputEl = document.createElement("input");
+    inputEl.type = "text";
+    inputEl.placeholder = "Enter Winning Score";
+    inputEl.id = "new-winning-score-input";
+    inputEl.classList.add("winning-score-box");
+
+    // Rebuild button
+    const newBtn = document.createElement("button");
+    newBtn.classList.add("add-winning-number");
+
+    // Append font awesome to the button
+    const fontAwesome = document.createElement("i");
+    fontAwesome.classList.add("fas");
+    fontAwesome.classList.add("fa-plus-square");
+
+    newBtn.appendChild(fontAwesome);
+
+    // Append all to winning div
+    winningScoreDiv.appendChild(inputEl);
+    winningScoreDiv.appendChild(newBtn);
+    document.getElementById("wrapper").append(winningScoreDiv);
+
     rollingScorePlayer = 0;
     activePlayerScore = 0;
-    document.querySelector(".player-1-score").textContent = 0;
-    document.querySelector(".player-2-score").textContent = 0;
-    document.querySelector(".player-1-rolling-score").textContent = 0;
-    document.querySelector(".player-2-rolling-score").textContent = 0;
+    if (winningPlayerId) {
+      document.querySelector(`#${winningPlayerId}`).classList.remove("winner");
+    }
+    document.querySelector(".player-1-current-score").textContent = 0;
+    document.querySelector(".player-2-current-score").textContent = 0;
+    document.querySelector(".player-1-final-score").textContent = 0;
+    document.querySelector(".player-2-final-score").textContent = 0;
     rightSide.classList.remove("active-player");
     leftSide.classList.add("active-player");
     rightDot.classList.add("hide");
     leftDot.classList.remove("hide");
+    isGameOn = true;
     activePlayer = 1;
   }
 };
 
 const setWinningNumber = function (e) {
   if (e.code === "Enter") {
-    winningScore = 0;
-    winningScore = +inputData.value;
+    if (document.querySelector("#new-winning-score-input")) {
+      winningScore = +document.querySelector("#new-winning-score-input").value;
+    } else {
+      winningScore = +inputData.value;
+    }
     const html = `<p>Final Score is: <span class="final-score">${winningScore}</span></p>`;
     winningScoreDiv.innerHTML = "";
     winningScoreDiv.innerHTML = html;
   }
 };
 
-const setWinningBtn = function () {
-  winningScore = 0;
-  winningScore = +inputData.value;
+const setWinningBtn = function (e) {
+  if (document.querySelector("#new-winning-score-input")) {
+    winningScore = +document.querySelector("#new-winning-score-input").value;
+  } else {
+    winningScore = +inputData.value;
+  }
   const html = `<p>Final Score is: <span class="final-score">${winningScore}</span></p>`;
   winningScoreDiv.innerHTML = "";
   winningScoreDiv.innerHTML = html;
@@ -258,5 +357,9 @@ overlay.addEventListener("click", hideModalClick);
 body.addEventListener("keydown", hideModalESC);
 functionalityParentElement.addEventListener("click", functionalities);
 newGameBtn.addEventListener("click", restartGame);
-inputData.addEventListener("keypress", setWinningNumber);
-addBtn.addEventListener("click", setWinningBtn);
+winningScoreDiv.addEventListener("keypress", setWinningNumber);
+winningScoreDiv.addEventListener("click", function (e) {
+  if (e.target.classList.contains("fas")) {
+    setWinningBtn();
+  }
+});

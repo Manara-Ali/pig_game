@@ -34,7 +34,7 @@
         </div> -->
       </div>
       <div class="game-rules">
-        <button class="btn btn-game-rules">GAME RULES</button>
+        <button class="btn btn-game-rules">⏯ GAME RULES</button>
         <div class="rules hide">
           <button class="close-modal">&times;</button>
           <h2>Game Rules</h2>
@@ -74,9 +74,9 @@
         />
       </div>
       <div class="functionality-buttons">
-        <button class="btn functionality btn-new-game">NEW GAME</button>
-        <button class="btn functionality btn-roll-dice">ROLL DICE</button>
-        <button class="btn functionality btn-hold">HOLD</button>
+        <button class="btn functionality btn-new-game">🎮 NEW GAME</button>
+        <button class="btn functionality btn-roll-dice">🎲 ROLL DICE</button>
+        <button class="btn functionality btn-hold">😎 HOLD</button>
       </div>
       <div id="winning-score">
         <input
@@ -90,34 +90,33 @@
           <i class="fas fa-plus-square"></i>
         </button>
       </div>
-      <div id="left-side" class="active-player" data-player="1">
+      <div id="left-side" class="active-player">
         <div class="player-1-layout">
-          <div class="player-1">
+          <div class="player-1" data-player="left-side">
             <h2>Player 1</h2>
             <div class="dot-1"></div>
           </div>
           <div class="rolling-score-1">
-            <span class="player-1-rolling-score">0</span>
+            <span class="player-1-final-score">0</span>
           </div>
           <div class="current-score-1">
             <h4>Current Score</h4>
-            <span class="player-1-score">0</span>
+            <span class="player-1-current-score">0</span>
           </div>
         </div>
-        <!-- <div class="overlay hide"></div> -->
       </div>
-      <div id="right-side" class="" data-player="2">
+      <div id="right-side" class="">
         <div class="player-2-layout">
-          <div class="player-2">
+          <div class="player-2" data-player="right-side">
             <h2>Player 2</h2>
             <div class="dot-2 hide"></div>
           </div>
           <div class="rolling-score-2">
-            <span class="player-2-rolling-score">0</span>
+            <span class="player-2-final-score">0</span>
           </div>
           <div class="current-score-2">
             <h4>Current Score</h4>
-            <span class="player-2-score">0</span>
+            <span class="player-2-current-score">0</span>
           </div>
         </div>
       </div>

@@ -56,7 +56,7 @@ body {
 }
 
 .btn-game-selection:hover {
-  transform: rotate(360deg) scale(1.2);
+  /* transform: rotate(360deg) scale(1.2); */
   transition: transform 1s ease;
 }
 
@@ -71,7 +71,7 @@ body {
 }
 
 .btn-game-rules:hover {
-  transform: rotate(360deg) scale(1.2);
+  transform: scale(1.5);
   transition: transform 1s ease;
 }
 
@@ -206,8 +206,8 @@ body {
   font-size: 1.1rem;
 }
 
-#left-side > .player-1-layout > .current-score-1 > .player-1-score,
-#right-side > .player-2-layout > .current-score-2 > .player-2-score {
+#left-side > .player-1-layout > .current-score-1 > .player-1-current-score,
+#right-side > .player-2-layout > .current-score-2 > .player-2-current-score {
   font-size: 1.5rem;
   font-weight: 400;
 }
@@ -247,7 +247,7 @@ body {
   position: absolute;
   /* display: flex; */
   /* flex-direction: column; */
-  bottom: 40px;
+  bottom: 20px;
   left: 42.5%;
 }
 
@@ -264,8 +264,8 @@ body {
   font-size: 30.5px;
 }
 
-#wrapper > #winning-score > .add-winning-number:active {
-  transform: translate(-2px, 2px);
+#wrapper > #winning-score > .add-winning-number:hover {
+  cursor: pointer;
 }
 
 #wrapper > #winning-score > .winning-score-box {
@@ -307,11 +307,11 @@ body {
 
 /* WINNER CLASS  */
 .winner {
-  color: #e49756;
+  /* color: #e49756;
   font-size: 2rem;
   font-weight: 200;
   position: absolute;
-  transform: rotate(-45deg);
+  transform: rotate(-45deg); */
   background-color: #444;
 }
 
