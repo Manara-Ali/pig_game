@@ -121,6 +121,16 @@ const functionalities = function (e) {
   if (isGameOn) {
     // Assuming the 'roll dice' was clicked
     if (e.target.classList.contains("btn-roll-dice")) {
+      // Retrieve the value inside of the input box
+
+      if (winningScore === undefined) {
+        winningScore = 100;
+        const html = `<p>Final Score is: <span class="final-score">${winningScore}</span></p>`;
+        winningScoreDiv.innerHTML = "";
+        winningScoreDiv.innerHTML = html;
+      }
+      // console.log(+inputData.value);
+
       diceContainer.classList.remove("hide");
       // Retrieve the corresponding image of the dice
       diceImage.src = `./images/dice-${diceNumber}.png`;
@@ -323,6 +333,7 @@ const restartGame = function (e) {
     leftDot.classList.remove("hide");
     isGameOn = true;
     activePlayer = 1;
+    winningScore === undefined;
   }
 };
 
