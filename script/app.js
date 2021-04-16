@@ -179,14 +179,26 @@ const functionalities = function (e) {
         activePlayer = currentPlayer();
         activePlayerScore = trackCurrentScore();
       } else {
-        // document
-        //   .querySelector(`.player-${activePlayer}-layout`)
-        //   .classList.add("winner");
-
         winningPlayerId = document.querySelector(`.player-${activePlayer}`)
           .dataset.player;
         document.querySelector(`#${winningPlayerId}`).classList.add("winner");
         console.log(`.player-${activePlayer} won!`);
+        const winner = `Player-${activePlayer}`;
+        const winnerScore = document.querySelector(
+          `.player-${activePlayer}-final-score`
+        ).textContent;
+        console.log(winner, +winnerScore);
+        localStorage.setItem(`${winner}`, `${+winnerScore}`);
+
+        document.querySelector(".high-score").innerHTML = "";
+
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          const value = localStorage.getItem(key);
+          document.querySelector(
+            ".high-score"
+          ).innerHTML += `${key} ${value}<br/>`;
+        }
         // CHANGE THE STATE OF THE GAME
         isGameOn = false;
       }
@@ -194,102 +206,10 @@ const functionalities = function (e) {
     // Guard Clause
     if (e.target.classList.contains("functionality-buttons")) return;
   }
-  // // Assuming the 'roll dice' was clicked
-  // if (e.target.classList.contains("btn-roll-dice")) {
-  //   diceContainer.classList.remove("hide");
-  //   // Retrieve the corresponding image of the dice
-  //   diceImage.src = `./images/dice-${diceNumber}.png`;
-
-  //   ///////// EDGE CASES, USER ROLLS A 1
-  //   if (diceNumber === 1) {
-  //     rollingScorePlayer = 0;
-  //     switchTurn();
-  //     // Reset the player's rolling score back to zero
-  //     rollingScorePlayer = 0;
-  //     // Update the DOM to reflect the resetted score
-  //     document.querySelector(
-  //       `.player-${activePlayer}-current-score`
-  //     ).textContent = rollingScorePlayer;
-  //     activePlayer = currentPlayer();
-  //     activePlayerScore = trackCurrentScore();
-  //   } else {
-  //     // Update player rolling score
-  //     rollingScorePlayer += diceNumber;
-  //     // Update the rolling score on the DOM
-  //     document.querySelector(
-  //       `.player-${activePlayer}-current-score`
-  //     ).textContent = rollingScorePlayer;
-  //   }
-  // }
-  // // Assuming the 'hold' button was clicked
-  // if (e.target.classList.contains("btn-hold")) {
-  //   // Transfer the rolling score to the player's current score
-  //   activePlayerScore += rollingScorePlayer;
-  //   // Update the DOM to reflect that score
-  //   document.querySelector(
-  //     `.player-${activePlayer}-final-score`
-  //   ).textContent = activePlayerScore;
-  //   // Reset the player's rolling score back to zero
-  //   rollingScorePlayer = 0;
-  //   // Update the DOM to reflect the resetted score
-  //   document.querySelector(
-  //     `.player-${activePlayer}-current-score`
-  //   ).textContent = rollingScorePlayer;
-  //   ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
-  //   if (
-  //     +document.querySelector(`.player-${activePlayer}-final-score`)
-  //       .textContent < winningScore
-  //   ) {
-  //     switchTurn();
-  //     activePlayer = currentPlayer();
-  //     activePlayerScore = trackCurrentScore();
-  //   } else {
-  //     // document
-  //     //   .querySelector(`.player-${activePlayer}-layout`)
-  //     //   .classList.add("winner");
-
-  //     const winningPlayerId = document.querySelector(`.player-${activePlayer}`)
-  //       .dataset.player;
-  //     document.querySelector(`#${winningPlayerId}`).classList.add("winner");
-  //     console.log(`.player-${activePlayer} won!`);
-  //   }
-  // }
-  // // Guard Clause
-  // if (e.target.classList.contains("functionality-buttons")) return;
 };
 
 //////// NEW GAME FUNCTIONALITY ////////
 const restartGame = function (e) {
-  //   if (e.target.classList.contains("btn-new-game")) {
-  //     diceContainer.classList.add("hide");
-  //     const html = `<input
-  //     type="text"
-  //     name="winning-score-input"
-  //     id="winning-score-input"
-  //     class="winning-score-box"
-  //     placeholder="Enter Winning Score"
-  //   />
-  //   <button class="add-winning-number">
-  //     <i class="fas fa-plus-square"></i>
-  //   </button>`;
-  //     winningScoreDiv.innerHTML = "";
-  //     winningScoreDiv.insertAdjacentHTML("afterbegin", html);
-  //     rollingScorePlayer = 0;
-  //     activePlayerScore = 0;
-  //     if (winningPlayerId) {
-  //       document.querySelector(`#${winningPlayerId}`).classList.remove("winner");
-  //     }
-  //     document.querySelector(".player-1-current-score").textContent = 0;
-  //     document.querySelector(".player-2-current-score").textContent = 0;
-  //     document.querySelector(".player-1-final-score").textContent = 0;
-  //     document.querySelector(".player-2-final-score").textContent = 0;
-  //     rightSide.classList.remove("active-player");
-  //     leftSide.classList.add("active-player");
-  //     rightDot.classList.add("hide");
-  //     leftDot.classList.remove("hide");
-  //     isGameOn = true;
-  //     activePlayer = 1;
-  //   }
   if (e.target.classList.contains("btn-new-game")) {
     diceContainer.classList.add("hide");
 
@@ -361,6 +281,52 @@ const setWinningBtn = function (e) {
   winningScoreDiv.innerHTML = html;
 };
 
+/////////////////////// SETTING UP PLAYERS ////////////////////
+const whoIsPlaying = function () {
+  console.log("hello");
+  const overlay = document.createElement("div");
+  const playerSelection = document.createElement("div");
+  const closeBtn = document.createElement("button");
+  const title = document.createElement("h2");
+  const player1Label = document.createElement("label");
+  const player1Insert = document.createElement("input");
+  const player2Label = document.createElement("label");
+  const player2Insert = document.createElement("input");
+  const playBtn = document.createElement("button");
+  playBtn.classList.add("btn-play");
+  playBtn.textContent = `Play!`;
+  player1Label.textContent = "Player 1";
+  player1Insert.type = "text";
+  player1Insert.id = "player-one";
+  player2Label.textContent = "Player 2";
+  player2Insert.type = "text";
+  player2Insert.id = "player-two";
+
+  title.textContent = "Who is playing?";
+  closeBtn.classList.add("close-modal");
+  closeBtn.textContent = "X";
+  playerSelection.classList.add("rules");
+  playerSelection.appendChild(title);
+  playerSelection.appendChild(closeBtn);
+  playerSelection.appendChild(player1Label);
+  playerSelection.appendChild(player1Insert);
+  playerSelection.appendChild(player2Label);
+  playerSelection.appendChild(player2Insert);
+  playerSelection.appendChild(playBtn);
+  overlay.appendChild(playerSelection);
+  overlay.classList.add("overlay");
+  body.append(overlay);
+
+  document.querySelector(".btn-play").addEventListener("click", function () {
+    console.log("Lets play");
+    document.querySelector(".player-1").children[0].textContent =
+      player1Insert.value;
+    document.querySelector(".player-2").children[0].textContent =
+      player2Insert.value;
+    overlay.classList.add("hide");
+  });
+};
+
 ////////////////////////////////////////////////////////////////////  EVENT HANDLERS /////////////////////////////////////////////////////
 directions.addEventListener("click", directionFunction);
 closeModal.addEventListener("click", hideModalClick);
@@ -374,3 +340,5 @@ winningScoreDiv.addEventListener("click", function (e) {
     setWinningBtn();
   }
 });
+
+window.addEventListener("load", whoIsPlaying);
