@@ -183,7 +183,9 @@ const functionalities = function (e) {
           .dataset.player;
         document.querySelector(`#${winningPlayerId}`).classList.add("winner");
         console.log(`.player-${activePlayer} won!`);
-        const winner = `Player-${activePlayer}`;
+        // const winner = `Player-${activePlayer}`;
+        const winner = document.querySelector(`.player-${activePlayer}`)
+          .children[0].textContent;
         const winnerScore = document.querySelector(
           `.player-${activePlayer}-final-score`
         ).textContent;
@@ -197,7 +199,7 @@ const functionalities = function (e) {
           const value = localStorage.getItem(key);
           document.querySelector(
             ".high-score"
-          ).innerHTML += `${key} ${value}<br/>`;
+          ).innerHTML += `${key} ........... ${value}<br/>`;
         }
         // CHANGE THE STATE OF THE GAME
         isGameOn = false;
