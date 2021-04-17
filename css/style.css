@@ -322,3 +322,54 @@ body {
 .final-score {
   color: #e04b5a;
 }
+
+/* WHO IS PLAYING OVERLAY */
+.overlay {
+  height: 150vh;
+}
+
+.overlay > .rules {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  justify-content: center;
+}
+
+.overlay > .rules > label {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.overlay > .rules > .btn-play {
+  margin-top: 20px;
+  padding: 7px 5px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #444;
+  text-align: center;
+}
+
+.overlay > .rules > input {
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.overlay > .rules > input:focus {
+  background-color: #ccc;
+  color: #333;
+  outline: #e49756;
+}
+
+.overlay > .rules > .btn-play:hover {
+  cursor: pointer;
+  color: #fff;
+  opacity: 0.9;
+}

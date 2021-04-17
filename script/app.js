@@ -296,7 +296,7 @@ const whoIsPlaying = function () {
   const player2Insert = document.createElement("input");
   const playBtn = document.createElement("button");
   playBtn.classList.add("btn-play");
-  playBtn.textContent = `Play!`;
+  playBtn.textContent = `Let's Play!`;
   player1Label.textContent = "Player 1";
   player1Insert.type = "text";
   player1Insert.id = "player-one";
@@ -306,7 +306,6 @@ const whoIsPlaying = function () {
 
   title.textContent = "Who is playing?";
   closeBtn.classList.add("close-modal");
-  closeBtn.textContent = "X";
   playerSelection.classList.add("rules");
   playerSelection.appendChild(title);
   playerSelection.appendChild(closeBtn);
