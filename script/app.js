@@ -23,6 +23,7 @@ let winningPlayerId;
 let isGameOn = true;
 let rollingScorePlayer = 0;
 let activePlayerScore = 0;
+const audio = new Audio("./sounds/dice-sound.mp3");
 
 // ELEMENTS SELECTION
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +58,6 @@ const directionFunction = function (e) {
     // ASSUMING USER CLICKED ON THE GAME SELECTION BUTTON
   } else if (e.target.classList.contains("btn-game-selection")) {
     //   We should display all available game options
-    console.log(e.target.textContent);
   }
 
   //   GUARD CLAUSE
@@ -110,6 +110,22 @@ const randomDiceNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+/////////////////////// FUNCTION SORTING HIGH SCORES ////////////////////
+const highScore = function () {
+  //   debugger;
+  const numbersArr = [];
+  let sortedArr;
+
+  for (let v of Object.values(localStorage)) {
+    numbersArr.push(+v);
+  }
+
+  sortedArr = numbersArr.sort(function (a, b) {
+    return a - b < 0 ? 1 : -1;
+  });
+  return sortedArr;
+};
+
 //////// FUNCTIONALITY BUTTON DELEGATION FOR 'ROLL DICE' AND 'HOLD' BUTTONS ////////
 const functionalities = function (e) {
   // Keep track of the score
@@ -121,6 +137,7 @@ const functionalities = function (e) {
   if (isGameOn) {
     // Assuming the 'roll dice' was clicked
     if (e.target.classList.contains("btn-roll-dice")) {
+      audio.play();
       // Retrieve the value inside of the input box
 
       if (winningScore === undefined) {
@@ -129,7 +146,6 @@ const functionalities = function (e) {
         winningScoreDiv.innerHTML = "";
         winningScoreDiv.innerHTML = html;
       }
-      // console.log(+inputData.value);
 
       diceContainer.classList.remove("hide");
       // Retrieve the corresponding image of the dice
@@ -179,27 +195,27 @@ const functionalities = function (e) {
         activePlayer = currentPlayer();
         activePlayerScore = trackCurrentScore();
       } else {
+        diceContainer.classList.add("hide");
         winningPlayerId = document.querySelector(`.player-${activePlayer}`)
           .dataset.player;
         document.querySelector(`#${winningPlayerId}`).classList.add("winner");
-        console.log(`.player-${activePlayer} won!`);
-        // const winner = `Player-${activePlayer}`;
         const winner = document.querySelector(`.player-${activePlayer}`)
           .children[0].textContent;
         const winnerScore = document.querySelector(
           `.player-${activePlayer}-final-score`
         ).textContent;
-        console.log(winner, +winnerScore);
         localStorage.setItem(`${winner}`, `${+winnerScore}`);
-
-        document.querySelector(".high-score").innerHTML = "";
-
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          const value = localStorage.getItem(key);
-          document.querySelector(
-            ".high-score"
-          ).innerHTML += `${key} ........... ${value}<br/>`;
+        for (let i = 0; i < highScore().length; i++) {
+          for (k of Object.keys(localStorage)) {
+            if (+localStorage.getItem(k) === highScore()[i]) {
+              document
+                .querySelector(".high-score")
+                .insertAdjacentHTML(
+                  "beforeend",
+                  `${k} ........... ${localStorage.getItem(k)} <br/>`
+                );
+            }
+          }
         }
         // CHANGE THE STATE OF THE GAME
         isGameOn = false;
@@ -283,9 +299,8 @@ const setWinningBtn = function (e) {
   winningScoreDiv.innerHTML = html;
 };
 
-/////////////////////// SETTING UP PLAYERS ////////////////////
+/////////////////////// FUNCTION FOR SETTING UP PLAYERS ////////////////////
 const whoIsPlaying = function () {
-  console.log("hello");
   const overlay = document.createElement("div");
   const playerSelection = document.createElement("div");
   const closeBtn = document.createElement("button");
@@ -306,7 +321,8 @@ const whoIsPlaying = function () {
 
   title.textContent = "Who is playing?";
   closeBtn.classList.add("close-modal");
-  playerSelection.classList.add("rules");
+  // playerSelection.classList.add("rules");
+  playerSelection.classList.add("player-selection");
   playerSelection.appendChild(title);
   playerSelection.appendChild(closeBtn);
   playerSelection.appendChild(player1Label);
@@ -319,7 +335,6 @@ const whoIsPlaying = function () {
   body.append(overlay);
 
   document.querySelector(".btn-play").addEventListener("click", function () {
-    console.log("Lets play");
     document.querySelector(".player-1").children[0].textContent =
       player1Insert.value;
     document.querySelector(".player-2").children[0].textContent =

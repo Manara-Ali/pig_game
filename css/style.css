@@ -9,15 +9,16 @@
 
 /* DEFAULT ELEMENTS */
 body {
-  height: 100vh;
+  height: 150vh;
   max-width: 1080px;
-  margin: 200px auto 0;
+  margin: 100px auto 0;
   background-image: linear-gradient(to bottom right, #000, #444, #ccc, #fff);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
   /* font-family: "Press Start 2P", sans-serif; */
+  font-family: "Original Surfer", cursive;
 }
 
 /* PAGE WRAPPER */
@@ -84,7 +85,7 @@ body {
 }
 
 .rules {
-  max-width: 30%;
+  max-width: 50%;
   /* max-height: 30%; */
   background-color: #fff;
   padding: 50px;
@@ -92,7 +93,7 @@ body {
   z-index: 10;
   position: absolute;
   top: 10rem;
-  left: 40rem;
+  left: 30rem;
 }
 
 .rules > h2 {
@@ -324,25 +325,41 @@ body {
 }
 
 /* WHO IS PLAYING OVERLAY */
+.player-selection {
+  max-width: 30%;
+  /* max-height: 30%; */
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 20px;
+  z-index: 10;
+  position: absolute;
+  top: 10rem;
+  left: 45rem;
+}
+
+.player-selection > h2 {
+  text-align: center;
+}
+
 .overlay {
   height: 150vh;
 }
 
-.overlay > .rules {
+.overlay > .player-selection {
   display: flex;
   flex-direction: column;
   width: 500px;
   justify-content: center;
 }
 
-.overlay > .rules > label {
+.overlay > .player-selection > label {
   margin-top: 20px;
   margin-bottom: 5px;
   color: #333;
   font-size: 1.3rem;
 }
 
-.overlay > .rules > .btn-play {
+.overlay > .player-selection > .btn-play {
   margin-top: 20px;
   padding: 7px 5px;
   border-radius: 5px;
@@ -354,22 +371,30 @@ body {
   background-repeat: no-repeat;
   color: #444;
   text-align: center;
+  font-family: "Original Surfer", cursive;
 }
 
-.overlay > .rules > input {
+.overlay > .player-selection > input {
   padding: 4px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-.overlay > .rules > input:focus {
+.overlay > .player-selection > input:focus {
   background-color: #ccc;
   color: #333;
   outline: #e49756;
 }
 
-.overlay > .rules > .btn-play:hover {
+.overlay > .player-selection > .btn-play:hover {
   cursor: pointer;
   color: #fff;
   opacity: 0.9;
+}
+
+/* HIGH SCORE */
+.high-score {
+  max-width: 200px;
+  margin: 20px auto;
+  text-align: center;
 }
