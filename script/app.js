@@ -23,7 +23,10 @@ let winningPlayerId;
 let isGameOn = true;
 let rollingScorePlayer = 0;
 let activePlayerScore = 0;
-const audio = new Audio("./sounds/dice-sound.mp3");
+const rollDiceAudio = new Audio("./sounds/dice-sound.mp3");
+const newGameAudio = new Audio("./sounds/new-game.mp3");
+const cashOutAudio = new Audio("./sounds/cash-out.mp3");
+const winningAudio = new Audio("./sounds/winning-sound.mp3");
 
 // ELEMENTS SELECTION
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +140,7 @@ const functionalities = function (e) {
   if (isGameOn) {
     // Assuming the 'roll dice' was clicked
     if (e.target.classList.contains("btn-roll-dice")) {
-      audio.play();
+      rollDiceAudio.play();
       // Retrieve the value inside of the input box
 
       if (winningScore === undefined) {
@@ -173,60 +176,70 @@ const functionalities = function (e) {
       }
     }
     // Assuming the 'hold' button was clicked
-    if (e.target.classList.contains("btn-hold")) {
-      // Transfer the rolling score to the player's current score
-      activePlayerScore += rollingScorePlayer;
-      // Update the DOM to reflect that score
-      document.querySelector(
-        `.player-${activePlayer}-final-score`
-      ).textContent = activePlayerScore;
-      // Reset the player's rolling score back to zero
-      rollingScorePlayer = 0;
-      // Update the DOM to reflect the resetted score
-      document.querySelector(
-        `.player-${activePlayer}-current-score`
-      ).textContent = rollingScorePlayer;
-      ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
-      if (
-        +document.querySelector(`.player-${activePlayer}-final-score`)
-          .textContent < winningScore
-      ) {
-        switchTurn();
-        activePlayer = currentPlayer();
-        activePlayerScore = trackCurrentScore();
-      } else {
-        diceContainer.classList.add("hide");
-        winningPlayerId = document.querySelector(`.player-${activePlayer}`)
-          .dataset.player;
-        document.querySelector(`#${winningPlayerId}`).classList.add("winner");
-        const winner = document.querySelector(`.player-${activePlayer}`)
-          .children[0].textContent;
-        const winnerScore = document.querySelector(
+    if (
+      document.querySelector(`.player-${activePlayer}-current-score`)
+        .textContent !==
+      0 + ""
+    ) {
+      if (e.target.classList.contains("btn-hold")) {
+        cashOutAudio.play();
+        // Transfer the rolling score to the player's current score
+        activePlayerScore += rollingScorePlayer;
+        // Update the DOM to reflect that score
+        document.querySelector(
           `.player-${activePlayer}-final-score`
-        ).textContent;
-        if (localStorage.key(`${winner}`)) {
-          console.log(localStorage.key(`${winner}`));
-          if (`${+winnerScore}` > +localStorage.getItem(`${winner}`)) {
-            localStorage.setItem(`${winner}`, `${+winnerScore}`);
-          }
+        ).textContent = activePlayerScore;
+        // Reset the player's rolling score back to zero
+        rollingScorePlayer = 0;
+        // Update the DOM to reflect the resetted score
+        document.querySelector(
+          `.player-${activePlayer}-current-score`
+        ).textContent = rollingScorePlayer;
+        ////// BEFORE WE SWICTH PLAYERS, I NEED TO VERIFY IF THE CURRENT PLAYER WON THE GAME OR NOT
+        if (
+          +document.querySelector(`.player-${activePlayer}-final-score`)
+            .textContent < winningScore
+        ) {
+          switchTurn();
+          activePlayer = currentPlayer();
+          activePlayerScore = trackCurrentScore();
         } else {
-          console.log("not enough");
-        }
-        // localStorage.setItem(`${winner}`, `${+winnerScore}`);
-        for (let i = 0; i < highScore().length; i++) {
-          for (k of Object.keys(localStorage)) {
-            if (+localStorage.getItem(k) === highScore()[i]) {
-              document
-                .querySelector(".high-score")
-                .insertAdjacentHTML(
-                  "beforeend",
-                  `${k} ........... ${localStorage.getItem(k)} <br/>`
-                );
+          // winningAudio.play();
+          diceContainer.classList.add("hide");
+          winningPlayerId = document.querySelector(`.player-${activePlayer}`)
+            .dataset.player;
+          document.querySelector(`#${winningPlayerId}`).classList.add("winner");
+          const winner = document.querySelector(`.player-${activePlayer}`)
+            .children[0].textContent;
+          const winnerScore = document.querySelector(
+            `.player-${activePlayer}-final-score`
+          ).textContent;
+          if (!localStorage.key(`${winner}`)) {
+            localStorage.setItem(`${winner}`, `${+winnerScore}`);
+          } else if (localStorage.key(`${winner}`)) {
+            console.log(localStorage.key(`${winner}`));
+            if (`${+winnerScore}` > +localStorage.getItem(`${winner}`)) {
+              localStorage.setItem(`${winner}`, `${+winnerScore}`);
+            }
+          } else {
+            console.log("not enough");
+          }
+          // localStorage.setItem(`${winner}`, `${+winnerScore}`);
+          for (let i = 0; i < highScore().length; i++) {
+            for (k of Object.keys(localStorage)) {
+              if (+localStorage.getItem(k) === highScore()[i]) {
+                document
+                  .querySelector(".high-score")
+                  .insertAdjacentHTML(
+                    "beforeend",
+                    `${k} ........... ${localStorage.getItem(k)} <br/>`
+                  );
+              }
             }
           }
+          // CHANGE THE STATE OF THE GAME
+          isGameOn = false;
         }
-        // CHANGE THE STATE OF THE GAME
-        isGameOn = false;
       }
     }
     // Guard Clause
@@ -237,6 +250,7 @@ const functionalities = function (e) {
 //////// NEW GAME FUNCTIONALITY ////////
 const restartGame = function (e) {
   if (e.target.classList.contains("btn-new-game")) {
+    newGameAudio.play();
     diceContainer.classList.add("hide");
 
     // Clear inner div
