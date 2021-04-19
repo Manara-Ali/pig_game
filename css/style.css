@@ -12,7 +12,13 @@ body {
   height: 150vh;
   max-width: 1080px;
   margin: 100px auto 0;
-  background-image: linear-gradient(to bottom right, #000, #444, #ccc, #fff);
+  background-image: linear-gradient(
+    to bottom right,
+    #f4f9f9,
+    #ccf2f4,
+    #a4ebf3,
+    #fff
+  );
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -51,12 +57,14 @@ body {
 }
 
 .btn-game-selection {
-  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  /* background-image: linear-gradient(to right, #e04b5a, #e49756); */
+  background-image: linear-gradient(to right, #ff9292, #ffb4b4);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  color: #444;
-  box-shadow: 4px 6px 8px #ccc;
+  /* color: #444; */
+  color: #000;
+  box-shadow: 4px 6px 8px #000;
 }
 
 .btn-game-selection:hover {
@@ -66,12 +74,13 @@ body {
 
 .btn-game-rules {
   /* box-shadow: 4px 6px 8px #444; */
-  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  /* background-image: linear-gradient(to right, #e04b5a, #e49756); */
+  background-image: linear-gradient(to right, #ff9292, #ffb4b4);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  box-shadow: 4px 6px 8px #333;
-  color: #444;
+  box-shadow: 4px 6px 8px #000;
+  color: #000;
 }
 
 .btn-game-rules:hover {
@@ -226,12 +235,13 @@ body {
 }
 
 #wrapper > .functionality-buttons > .functionality {
-  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  /* background-image: linear-gradient(to right, #e04b5a, #e49756); */
+  background-image: linear-gradient(to right, #ff9292, #ffb4b4);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  box-shadow: 4px 6px 8px #333;
-  color: #444;
+  box-shadow: 4px 6px 8px #000;
+  color: #000;
 }
 
 #wrapper > .functionality-buttons > .functionality:active {
@@ -321,7 +331,7 @@ body {
 
 /* FINAL SCORE */
 .final-score {
-  color: #e04b5a;
+  color: red;
 }
 
 /* WHO IS PLAYING OVERLAY */
@@ -365,11 +375,12 @@ body {
   border-radius: 5px;
   border: none;
   outline: none;
-  background-image: linear-gradient(to right, #e04b5a, #e49756);
+  background-image: linear-gradient(to right, #ff9292, #ffb4b4);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  color: #444;
+  box-shadow: 4px 6px 8px #000;
+  color: #000;
   text-align: center;
   font-family: "Original Surfer", cursive;
 }
