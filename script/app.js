@@ -204,7 +204,15 @@ const functionalities = function (e) {
         const winnerScore = document.querySelector(
           `.player-${activePlayer}-final-score`
         ).textContent;
-        localStorage.setItem(`${winner}`, `${+winnerScore}`);
+        if (localStorage.key(`${winner}`)) {
+          console.log(localStorage.key(`${winner}`));
+          if (`${+winnerScore}` > +localStorage.getItem(`${winner}`)) {
+            localStorage.setItem(`${winner}`, `${+winnerScore}`);
+          }
+        } else {
+          console.log("not enough");
+        }
+        // localStorage.setItem(`${winner}`, `${+winnerScore}`);
         for (let i = 0; i < highScore().length; i++) {
           for (k of Object.keys(localStorage)) {
             if (+localStorage.getItem(k) === highScore()[i]) {
@@ -265,6 +273,8 @@ const restartGame = function (e) {
     document.querySelector(".player-2-current-score").textContent = 0;
     document.querySelector(".player-1-final-score").textContent = 0;
     document.querySelector(".player-2-final-score").textContent = 0;
+    document.querySelector(".high-score").innerHTML = "";
+    document.querySelector(".high-score").innerHTML = "<h2>High Score</h2>";
     rightSide.classList.remove("active-player");
     leftSide.classList.add("active-player");
     rightDot.classList.add("hide");
