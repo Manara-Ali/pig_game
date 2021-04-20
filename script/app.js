@@ -217,7 +217,6 @@ const functionalities = function (e) {
           if (!localStorage.key(`${winner}`)) {
             localStorage.setItem(`${winner}`, `${+winnerScore}`);
           } else if (localStorage.key(`${winner}`)) {
-            console.log(localStorage.key(`${winner}`));
             if (`${+winnerScore}` > +localStorage.getItem(`${winner}`)) {
               localStorage.setItem(`${winner}`, `${+winnerScore}`);
             }
