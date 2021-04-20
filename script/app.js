@@ -27,9 +27,9 @@ const rollDiceAudio = new Audio("./sounds/dice-sound.mp3");
 const newGameAudio = new Audio("./sounds/new-game.mp3");
 const cashOutAudio = new Audio("./sounds/cash-out.mp3");
 const winningAudio = new Audio("./sounds/winning-sound.mp3");
+const alertAudio = new Audio("./sounds/alert.mp3");
 
-// ELEMENTS SELECTION
-/////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////// ELEMENTS SELECTION  //////////////////////////////////////
 const body = document.querySelector("body");
 const directions = document.querySelector("#directions");
 const rules = document.querySelector(".rules");
@@ -49,8 +49,7 @@ const inputData = document.getElementById("winning-score-input");
 const addBtn = document.querySelector(".add-winning-number");
 const winningScoreDiv = document.querySelector("#winning-score");
 
-// FUNCTIONS
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////// FUNCTIONS //////////////////////////////////////////////
 const directionFunction = function (e) {
   // ASSUMING USER CLICKED ON THE RULES BUTTON
   if (e.target.classList.contains("btn-game-rules")) {
@@ -156,6 +155,7 @@ const functionalities = function (e) {
 
       ///////// EDGE CASES, USER ROLLS A 1
       if (diceNumber === 1) {
+        alertAudio.play();
         rollingScorePlayer = 0;
         switchTurn();
         // Reset the player's rolling score back to zero

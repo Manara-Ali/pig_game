@@ -35,6 +35,7 @@ body {
   border-radius: 15px;
   display: flex;
   position: relative;
+  box-shadow: 4px 6px 30px #000;
 }
 
 /* GAME DIRECTIONS */
