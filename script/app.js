@@ -221,7 +221,8 @@ const functionalities = function (e) {
               localStorage.setItem(`${winner}`, `${+winnerScore}`);
             }
           } else {
-            console.log("not enough");
+            // DO NOTHING
+            // console.log("not enough");
           }
           // localStorage.setItem(`${winner}`, `${+winnerScore}`);
           for (let i = 0; i < highScore().length; i++) {
@@ -358,6 +359,7 @@ const whoIsPlaying = function () {
   body.append(overlay);
 
   document.querySelector(".btn-play").addEventListener("click", function () {
+    newGameAudio.play();
     document.querySelector(".player-1").children[0].textContent =
       player1Insert.value;
     document.querySelector(".player-2").children[0].textContent =
