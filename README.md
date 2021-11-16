@@ -1,7 +1,13 @@
 # Dice Game
 
 This is a two players dice game that engages both players simultaneously.
-Players takes turns rolling a die and the first player to reach the set final score wins the game.
+Players takes turns rolling a die and the first player to reach the set final score wins the game. If a player rolls a 1 on the die he or she loses all the previously accumulated points.
+
+## Project url
+Here the link to the project https://manara-ali.github.io/pig_game/. ⚠️ Play responsibly!
+
+## Project Image
+![](images/diceGame.png)
 
 ## Warning
 
